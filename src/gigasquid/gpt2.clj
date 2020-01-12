@@ -158,3 +158,9 @@ predicted-index ;=>582
                 0.8)
 ;=>"It is thought that cheese was first discovered around 8000 BC around the time when sheep were first domesticated as sheep. Native American plants and animals associated with such plants are described as being \"mushy, leafy and musky\" from having \"powder-like stalks and narrow niche-like leaves.\" They are believed to have been found in the Cauca Chaco area of South America and northern Mexico. The earliest known cases of cheese in the Americas could be traced back to around 160 BC, when the deposits of the Cauca Chaco were discovered in Colombia, Peru and Argentina"
 
+
+(generate-text2 "Rich Hickey developed Clojure because he wanted a modern Lisp for functional programming, symbiotic with the established Java platform"
+                100
+                0.8)
+"Rich Hickey developed Clojure because he wanted a modern Lisp for functional programming, symbiotic with the established Java platform. He knew that Clojure would make it hard to access any memory through Java, and code a good amount of Lisp. He had much to learn about programming at the time, and Clojure was perfect for him. It was important to understand the dominant language of Lisp, which was Clojure and JVM. Because of this, JVM was named 'Snack: No Slobs in Clojure'. This was a very important order of things, for JVM. Clojure had a major advantage over JVM in"
+
