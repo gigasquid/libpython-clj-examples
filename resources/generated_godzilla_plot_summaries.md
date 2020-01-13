@@ -1,7 +1,7 @@
 
 ## The Following Godzilla Plot Summaries Created By GPT2
 
-![godzilla](https://en.wikipedia.org/wiki/Godzilla#/media/File:Godzilla_'54_design.jpg)
+![godzilla](https://upload.wikimedia.org/wikipedia/en/2/29/Godzilla_%2754_design.jpg)
 
 Prompts from the first sentences of : [https://www.empireonline.com/movies/features/godzilla-movie-guide/](https://www.empireonline.com/movies/features/godzilla-movie-guide/)
 
