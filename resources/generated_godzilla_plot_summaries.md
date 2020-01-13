@@ -1,5 +1,7 @@
 
-## The Following Godzilla Plot Summaries have been Created By GPT2
+## The Following Godzilla Plot Summaries Created By GPT2
+
+![godzilla](https://en.wikipedia.org/wiki/Godzilla#/media/File:Godzilla_'54_design.jpg)
 
 Prompts from the first sentences of : [https://www.empireonline.com/movies/features/godzilla-movie-guide/](https://www.empireonline.com/movies/features/godzilla-movie-guide/)
 
