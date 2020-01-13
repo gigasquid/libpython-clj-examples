@@ -1,11 +1,10 @@
 
-##The Following Godzilla Plot Summaries have been Created By GPT2
+## The Following Godzilla Plot Summaries have been Created By GPT2
 
-**Prompts from the first sentences of :https://www.empireonline.com/movies/features/godzilla-movie-guide/
-**
+Prompts from the first sentences of : [https://www.empireonline.com/movies/features/godzilla-movie-guide/](https://www.empireonline.com/movies/features/godzilla-movie-guide/)
 
 
-###Movie: GODZILLA (1954)
+### Movie: GODZILLA (1954)
 
 The disappearance of some fishing boats revives the legend of an ancient sea monster, and heralds the arrival of Godzilla himself for the first time.
 
@@ -14,29 +13,29 @@ Why? Because the creatures lifeforms have always been talking to each other. And
 In INTRODUCING THE FISHING SEA, archaeologist Paul Goldman, an expert on extinct reptiles, explains why their existence is so important. He found that only a third of the species of the very elusive fishes that claimed to be the life forms of ancient species disappeared from the oceans of the Great Barrier Reef
 
 
-###Movie: GODZILLA RAIDS AGAIN (1955)
+### Movie: GODZILLA RAIDS AGAIN (1955)
 
 Crash-landing on Iwato Island, two pilots stumble upon Godzilla fighting the Stegosaurus-thing Anguirus.
 
 The fourth finale, Sinosha 3, ends with Abuma and Gero, the scientists, helping Manchin to survive the destruction that will engulf the world. In the fourth book, Manchin and his crew escape from a factory in the Baku prefecture and they discover the battle was won by a deadly robot called the Hawk. For the past 20 years, Manchin has been rescuing the others as they battle with the Hawk, and he was once a Baku fighter.
 
 
-###Movie: KING KONG VS. GODZILLA (1962)
+### Movie: KING KONG VS. GODZILLA (1962)
 
 Godzilla, frozen at the end of the last film, thaws out, sinks a submarine and, having been prevented from entering Tokyo by a Japanese military officer who was barking orders from his superior's squadron, begins to land at the base of the Yamashita plant. However, a mob of enraged and murderous Japanese troops arrive and begin to storm the base. In the middle of this, a group of K-1 Bear helicopters arrive and fight off the Japanese, who attempt to put the helicopter down. The helicopters take the Hatomi clan and lead them on a savage rampage. The helicopter explodes, killing three of the Hatomi.
 
-###Movie: MOTHRA VS. GODZILLA (1964)
+### Movie: MOTHRA VS. GODZILLA (1964)
 
 Scientists discover a big egg in some typhoon wreckage, and learn that it comes from Infant Island, where lives the lepidopterous god Mothra on the island. The Lepidoptera (and the Phyllobionidae) are the only known species of monsters as far as modern humans know, and although there are a few of them, they do exist in all oceans of the world.
 
 
-###Movie: GHIDORAH, THE THREE-HEADED MONSTER (1964)
+### Movie: GHIDORAH, THE THREE-HEADED MONSTER (1964)
 
 Following his debut in his own 1956 film, Rodan emerges from the crater of Mt. Aso, while Godzilla emerges from the deep once again. As Godzilla is the only monster of his kind left in Japan, his father is under attack by Godzilla's forces. The battle between Godzilla and the forces of nature has become so ferocious that only a few survivors survive, while the remaining (namely the garden santa) are bitten and killed by their own juices.
 
 The battle ends with Godzilla being sliced open by a spider-like claw. Godzilla is defeated and sent to prison for his crimes, later leaving Earth.
 
-###Movie: INVASION OF ASTRO-MONSTER (1965)
+### Movie: INVASION OF ASTRO-MONSTER (1965)
 
 A joint Japanese / American space mission rocks up behind Jupiter at a newly discovered planet the Earth has dubbed 'Planet X' (pictured, Jupiter's rings that were once linked to Earth early in its journey to the star). The newly discovered planet's rings are two times larger than Earth's
 
@@ -55,7 +54,7 @@ Scientists working on a weather control system are hampered by the Kamacuras, tw
 
 This is the first time that a group of scientists have been able to study the face of a giant praying mantise,\" said Carpio Bendaño, an ecologist who studies the effects of earthquakes on creatures like the swarm of giant goo, which is the only known creature.
 
-Movie: DESTROY ALL MONSTERS (1968)
+### Movie: DESTROY ALL MONSTERS (1968)
 
 Toho’s twentieth kaiju film was a celebratory affair, intended to mark Godzilla’s final appearance in the early '90s. Although many people were thrilled with the two-day, homecoming, many were disappointed.
 
@@ -63,7 +62,7 @@ In the mid-'90s, both Japan and North America became obsessed with Godzilla. The
 
 ...
 
-###Movie: GODZILLA: KING OF THE MONSTERS (2019)
+### Movie: GODZILLA: KING OF THE MONSTERS (2019)
 "The first direct sequel to the 2014 Godzilla once again sees Monarch-connected humans standing by ineffectually as Gojira protects the world from a new era of monster gods.
 
 Gojira, who is Catholic, took the name Godzilla in part to honor his papal sainthood. Her character was named after Queen Elizabeth II, the monarch who was also Catholic.
