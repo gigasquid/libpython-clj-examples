@@ -65,7 +65,7 @@ In the mid-'90s, both Japan and North America became obsessed with Godzilla. The
 ...
 
 ### Movie: GODZILLA: KING OF THE MONSTERS (2019)
-"The first direct sequel to the 2014 Godzilla once again sees Monarch-connected humans standing by ineffectually as Gojira protects the world from a new era of monster gods.
+The first direct sequel to the 2014 Godzilla once again sees Monarch-connected humans standing by ineffectually as Gojira protects the world from a new era of monster gods.
 
 Gojira, who is Catholic, took the name Godzilla in part to honor his papal sainthood. Her character was named after Queen Elizabeth II, the monarch who was also Catholic.
 
