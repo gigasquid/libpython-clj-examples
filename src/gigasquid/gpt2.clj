@@ -1,22 +1,22 @@
 (ns gigasquid.gpt2
   (:require [libpython-clj.require :refer [require-python]]
-            [libpython-clj.python :as py]))
+            [libpython-clj.python :as py :refer [py. py.. py.-]]))
 
 ;;; sudo pip3 install torch
 ;;; sudo pip3 install transformers
 
 ;https://huggingface.co/transformers/quickstart.html - OpenAI GPT-2
 
-(require-python '(transformers))
-(require-python '(torch))
+(require-python 'transformers)
+(require-python 'torch)
 
 
 ;;; Load pre-trained model tokenizer (vocabulary)
 
-(def tokenizer (py/$a transformers/GPT2Tokenizer from_pretrained "gpt2"))
+(def tokenizer (py. transformers/GPT2Tokenizer "from_pretrained" "gpt2"))
 (def text "Who was Jim Henson ? Jim Henson was a")
 ;; encode text input
-(def indexed-tokens  (py/$a tokenizer encode text))
+(def indexed-tokens  (py. tokenizer encode text))
 indexed-tokens ;=>[8241, 373, 5395, 367, 19069, 5633, 5395, 367, 19069, 373, 257]
 
 ;; convert indexed tokens to pytorch tensor
@@ -27,11 +27,11 @@ tokens-tensor
 
 ;;; Load pre-trained model (weights)
 ;;; Note: this will take a few minutes to download everything
-(def model (py/$a transformers/GPT2LMHeadModel from_pretrained "gpt2"))
+(def model (py. transformers/GPT2LMHeadModel from_pretrained "gpt2"))
 
 ;;; Set the model in evaluation mode to deactivate the DropOut modules
 ;;; This is IMPORTANT to have reproducible results during evaluation!
-(py/$a model eval)
+(py. model eval)
 
 
 ;;; Predict all tokens
@@ -41,11 +41,11 @@ tokens-tensor
 ;;; get the predicted next sub-word"
 (def predicted-index (let [last-word-predictions (->  predictions first last)
                            arg-max (torch/argmax last-word-predictions)]
-                       (py/$a arg-max item)))
+                       (py. arg-max item)))
 
 predicted-index ;=>582
 
-(py/$a tokenizer decode (-> (into [] indexed-tokens)
+(py. tokenizer decode (-> (into [] indexed-tokens)
                             (conj predicted-index)))
 
 ;=> "Who was Jim Henson? Jim Henson was a man"
@@ -57,19 +57,19 @@ predicted-index ;=>582
 
 ;; Here is a fully-working example using the past with GPT2LMHeadModel and argmax decoding (which should only be used as an example, as argmax decoding introduces a lot of repetition):
 
-(def tokenizer (py/$a transformers/GPT2Tokenizer from_pretrained "gpt2"))
-(def model (py/$a transformers/GPT2LMHeadModel from_pretrained "gpt2"))
+(def tokenizer (py. transformers/GPT2Tokenizer from_pretrained "gpt2"))
+(def model (py. transformers/GPT2LMHeadModel from_pretrained "gpt2"))
 
-(def generated (into [] (py/$a tokenizer encode "The Manhattan bridge")))
+(def generated (into [] (py. tokenizer encode "The Manhattan bridge")))
 (def context (torch/tensor [generated]))
 
 
 (defn generate-sequence-step [{:keys [generated-tokens context past]}]
   (let [[output past] (model context :past past)
         token (torch/argmax (first output))
-        new-generated  (conj generated-tokens (py/$a token tolist))]
+        new-generated  (conj generated-tokens (py. token tolist))]
     {:generated-tokens new-generated
-     :context (py/$a token unsqueeze 0)
+     :context (py. token unsqueeze 0)
      :past past
      :token token}))
 
@@ -90,7 +90,7 @@ predicted-index ;=>582
 ;;; Let's make a nice function to generate text
 
 (defn generate-text [starting-text num-of-words-to-predict]
-  (let [tokens (into [] (py/$a tokenizer encode starting-text))
+  (let [tokens (into [] (py. tokenizer encode starting-text))
         context (torch/tensor [tokens])
         result (reduce
                 (fn [r i]
@@ -116,7 +116,7 @@ predicted-index ;=>582
 
 ;;; from https://github.com/huggingface/transformers/issues/1725
 
-(require-python '(torch.nn.functional))
+(require-python 'torch.nn.functional)
 
 (defn sample-sequence-step [{:keys [generated-tokens context past temp]
                              :or {temp 0.8}}]
@@ -164,3 +164,6 @@ predicted-index ;=>582
                 0.8)
 "Rich Hickey developed Clojure because he wanted a modern Lisp for functional programming, symbiotic with the established Java platform. He knew that Clojure would make it hard to access any memory through Java, and code a good amount of Lisp. He had much to learn about programming at the time, and Clojure was perfect for him. It was important to understand the dominant language of Lisp, which was Clojure and JVM. Because of this, JVM was named 'Snack: No Slobs in Clojure'. This was a very important order of things, for JVM. Clojure had a major advantage over JVM in"
 
+(generate-text2 "What is the average rainfall in Florida?"
+                100
+                0.8)
