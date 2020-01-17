@@ -34,10 +34,10 @@
          w# (second shape#)
          bufimage# (bufimg/new-image h# w# :byte-abgr)]
      (print "shape " shape# "h" h# "w" w#)
-    (dtype/copy! tens# bufimage#)
-    (dtt/select tens# :all :all (->> (range 4) reverse))
-    (bufimg/save! bufimage# "temp.png")
-    (sh/sh "open" "temp.png")))
+     (dtype/copy! tens# bufimage#)
+     (dtt/select tens# :all :all (->> (range 4) reverse))
+     (bufimg/save! bufimage# "temp.png")
+     (sh/sh "open" "temp.png")))
 
 
 (comment
