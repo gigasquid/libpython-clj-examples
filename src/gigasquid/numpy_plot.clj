@@ -3,12 +3,18 @@
             [libpython-clj.python :as py :refer [py. py.. py.-]]
             [gigasquid.plot :as plot]))
 
-;;; Try printing from another namespace
 
 (require-python 'matplotlib.pyplot)
 (require-python 'numpy)
 
-(comment 
+;;;; you will need matplotlib, numpy, and pillow installed to run this in python3
+
+
+;;; This uses a macro from printing in the plot namespace that uses the shell "open" command
+;;; to show a saved image from pyplot. If you don't have a mac you will need to modify that
+;;; to whatever shell command you have.
+
+(comment
   (def x (numpy/linspace 0 2 50))
 
   (plot/with-show (matplotlib.pyplot/plot [[1 2 3 4 5] [1 2 3 4 10]] :label "linear"))
@@ -64,6 +70,23 @@
       (matplotlib.pyplot/subplot 1 2 1)
       (matplotlib.pyplot/imshow img)
       (matplotlib.pyplot/subplot 1 2 2)
-      (matplotlib.pyplot/imshow (numpy/uint8 img-tinted)))))
+      (matplotlib.pyplot/imshow (numpy/uint8 img-tinted))))
+
+
+;;;;; pie chart
+;;;; from https://matplotlib.org/3.1.1/gallery/pie_and_polar_charts/pie_features.html
+
+
+  (let [labels ["Frogs" "Hogs" "Dogs" "Logs"]
+        sizes [15 30 45 10]
+        explode [0 0.1 0 0] ; only explode the 2nd slice (Hogs)
+        ]
+    (plot/with-show
+      (let [[fig1 ax1] (matplotlib.pyplot/subplots)]
+        (py. ax1 "pie" sizes :explode explode :labels labels :autopct "%1.1f%%"
+                             :shadow true :startangle 90)
+        (py. ax1 "axis" "equal")) ;equal aspec ration ensures that pie is drawn as circle
+      ))
+  )
 
 
