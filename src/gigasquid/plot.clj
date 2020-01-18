@@ -26,19 +26,9 @@
          fig# (matplotlib.pyplot/figure)
          agg-canvas# (matplotlib.backends.backend_agg/FigureCanvasAgg fig#)
          _#  ~(cons 'do body)
-         _# (py. agg-canvas# "draw")
-         np-data# (numpy/array (py. agg-canvas# "buffer_rgba"))
-         tens# (py/as-tensor np-data#)
-         shape# (dtype/shape tens#)
-         h# (first shape#)
-         w# (second shape#)
-         bufimage# (bufimg/new-image h# w# :byte-abgr)]
-     (print "shape " shape# "h" h# "w" w#)
-     (dtype/copy! tens# bufimage#)
-     (dtt/select tens# :all :all (->> (range 4) reverse))
-     (bufimg/save! bufimage# "temp.png")
+         _# (py. agg-canvas# "draw")]
+     (matplotlib.pyplot/savefig "temp.png")
      (sh/sh "open" "temp.png")))
-
 
 (comment
   (def x (numpy/linspace 0 2 100))
