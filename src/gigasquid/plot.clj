@@ -1,9 +1,6 @@
 (ns gigasquid.plot
   (:require [libpython-clj.require :refer [require-python]]
             [libpython-clj.python :as py :refer [py. py.. py.-]]
-            [tech.libs.buffered-image :as bufimg]
-            [tech.v2.datatype :as dtype]
-            [tech.v2.tensor :as dtt]
             [clojure.java.shell :as sh]))
 
 
@@ -24,9 +21,9 @@
   [& body]
   `(let [_# (matplotlib.pyplot/clf)
          fig# (matplotlib.pyplot/figure)
-         agg-canvas# (matplotlib.backends.backend_agg/FigureCanvasAgg fig#)
-         _#  ~(cons 'do body)
-         _# (py. agg-canvas# "draw")]
+         agg-canvas# (matplotlib.backends.backend_agg/FigureCanvasAgg fig#)]
+     ~(cons 'do body)
+     (py. agg-canvas# "draw")
      (matplotlib.pyplot/savefig "temp.png")
      (sh/sh "open" "temp.png")))
 
