@@ -8,6 +8,8 @@ So far there are source code examples meant to be walked through in the REPL
 - GPT2 text generation from hugging-face
 - MXNet MNIST classification using the Module API
 - Matlib PyPlot
+- NLTK
+- SpaCy
 
 In general, you will need a python3 env and pip install the various packages
 before running
