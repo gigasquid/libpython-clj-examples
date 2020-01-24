@@ -1,7 +1,6 @@
 (ns gigasquid.nltk
   (:require [libpython-clj.require :refer [require-python]]
-            [libpython-clj.python :as py :refer [py. py.. py.-]]
-            [gigasquid.plot :as plot]))
+            [libpython-clj.python :as py :refer [py. py.. py.-]]))
 
 ;;; What is NLTK ?
 ;;; https://www.nltk.org/
@@ -140,7 +139,7 @@ The sky is pinkish-blue. You shouldn't eat cardboard")
  fdist ;=> <FreqDist with 25 samples and 30 outcomes>
 
  (py. fdist most_common)
- ;=> [('is', 3), (',', 2), ('The', 2), ('.', 2), ('Hello', 1), ('Mr.', 1), ('Smith', 1), ('how', 1), ('are', 1), ('you', 1), ('doing', 1), ('today', 1), ('?', 1), ('weather', 1), ('great', 1), ('and', 1), ('city', 1), ('awesome', 1), ('sky', 1), ('pinkish-blue', 1), ('You', 1), ('should', 1), ("n't", 1), ('eat', 1), ('cardboard', 1)]
+                                        ;=> [('is', 3), (',', 2), ('The', 2), ('.', 2), ('Hello', 1), ('Mr.', 1), ('Smith', 1), ('how', 1), ('are', 1), ('you', 1), ('doing', 1), ('today', 1), ('?', 1), ('weather', 1), ('great', 1), ('and', 1), ('city', 1), ('awesome', 1), ('sky', 1), ('pinkish-blue', 1), ('You', 1), ('should', 1), ("n't", 1), ('eat', 1), ('cardboard', 1)]
 
 
 ;;; stopwords (considered noise in tett)
@@ -153,9 +152,10 @@ The sky is pinkish-blue. You shouldn't eat cardboard")
 
  ;;; removing stopwords
 
- (->> tokenized-sent
-      (map tokenize/word_tokenize)
-      (map #(remove stop-words %)))
+ (def filtered-sent (->> tokenized-sent
+                         (map tokenize/word_tokenize)
+                         (map #(remove stop-words %))))
+ filtered-sent
  ;; (("Hello" "Mr." "Smith" "," "today" "?")
  ;; ("The" "weather" "great" "," "city" "awesome" ".")
  ;; ("The" "sky" "pinkish-blue" ".")
@@ -165,7 +165,39 @@ The sky is pinkish-blue. You shouldn't eat cardboard")
  ;;;; Lexicon Normalization
  ;;stemming
 
+ (require-python '([nltk.stem :as stem]))
+
+ (let [ps (stem/PorterStemmer)]
+   (->> filtered-sent
+        (map (fn [sent] (map #(py. ps stem %) sent)))))
+ ;;=> (("hello" "mr." "smith" "," "today" "?")
+ ;;   ("the" "weather" "great" "," "citi" "awesom" ".")
+ ;;   ("the" "sky" "pinkish-blu" ".") ("you" "n't" "eat" "cardboard")
  
+
+;;; Lemmatization
+
+ (require-python '([nltk.stem.wordnet :as wordnet]))
+
+ (let [lem (wordnet/WordNetLemmatizer)
+       stem (stem/PorterStemmer)
+       word "flying"]
+   {:lemmatized-word (py. lem lemmatize word "v")
+    :stemmed-word (py. stem stem word)})
+                                        ;=> {:lemmatized-word "fly", :stemmed-word "fli"}
+
+;;; POS Tagging
+ (let [sent "Albert Einstein was born in Ulm, Germany in 1879."
+       tokens (nltk/word_tokenize sent)]
+   {:tokens tokens
+    :pos-tag (nltk/pos_tag tokens)})
+ ;; {:tokens
+ ;; ['Albert', 'Einstein', 'was', 'born', 'in', 'Ulm', ',', 'Germany', 'in', '1879', '.'],
+ ;; :pos-tag
+ ;; [('Albert', 'NNP'), ('Einstein', 'NNP'), ('was', 'VBD'), ('born', 'VBN'), ('in', 'IN'), ('Ulm', 'NNP'), (',', ','), ('Germany', 'NNP'), ('in', 'IN'), ('1879', 'CD'), ('.', '.')]}
+
+
+
 
  )
 
