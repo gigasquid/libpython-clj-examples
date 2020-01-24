@@ -11,7 +11,7 @@
 (def mplt (py/import-module "matplotlib"))
 (py. mplt "use" "Agg")
 
-(require-python 'matplotlib.pyplot)
+(require-python '([matplotlib.pyplot :as pyplot]))
 (require-python 'matplotlib.backends.backend_agg)
 (require-python 'numpy)
 
@@ -19,27 +19,27 @@
 (defmacro with-show
   "Takes forms with mathplotlib.pyplot to then show locally"
   [& body]
-  `(let [_# (matplotlib.pyplot/clf)
-         fig# (matplotlib.pyplot/figure)
+  `(let [_# (pyplot/clf)
+         fig# (pyplot/figure)
          agg-canvas# (matplotlib.backends.backend_agg/FigureCanvasAgg fig#)]
      ~(cons 'do body)
      (py. agg-canvas# "draw")
-     (matplotlib.pyplot/savefig "temp.png")
+     (pyplot/savefig "temp.png")
      (sh/sh "open" "temp.png")))
 
 (comment
   (def x (numpy/linspace 0 2 100))
 
   (with-show
-    (matplotlib.pyplot/plot [x x] :label "linear")
-    (matplotlib.pyplot/plot [x (py. x "__pow__" 2)] :label "quadratic")
-    (matplotlib.pyplot/plot [x (py. x "__pow__" 3)] :label "cubic")
-    (matplotlib.pyplot/xlabel "x label")
-    (matplotlib.pyplot/ylabel "y label")
-    (matplotlib.pyplot/title "Simple Plot"))
+    (pyplot/plot [x x] :label "linear")
+    (pyplot/plot [x (py. x "__pow__" 2)] :label "quadratic")
+    (pyplot/plot [x (py. x "__pow__" 3)] :label "cubic")
+    (pyplot/xlabel "x label")
+    (pyplot/ylabel "y label")
+    (pyplot/title "Simple Plot"))
 
 
-  (with-show (matplotlib.pyplot/plot [[1 2 3 4 5] [1 2 3 4 10]] :label "linear"))
+  (with-show (pyplot/plot [[1 2 3 4 5] [1 2 3 4 10]] :label "linear"))
   )
 
 
