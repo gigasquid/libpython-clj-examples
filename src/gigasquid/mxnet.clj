@@ -4,6 +4,7 @@
             [clojure.string :as string]))
 
 ;;; sudo pip3 install mxnet
+;;; sudo pip3 install opencv-python
 
 (require-python '(mxnet mxnet.ndarray mxnet.module mxnet.io))
 (require-python '(mxnet.test_utils mxnet.initializer mxnet.metric mxnet.symbol))
