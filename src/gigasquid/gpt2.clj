@@ -7,8 +7,8 @@
 
 ;https://huggingface.co/transformers/quickstart.html - OpenAI GPT-2
 
-(require-python 'transformers)
-(require-python 'torch)
+(require-python '[transformers :as transformers])
+(require-python '[torch :as torch])
 
 
 ;;; Load pre-trained model tokenizer (vocabulary)
@@ -74,7 +74,7 @@ predicted-index ;=>582
      :token token}))
 
 (defn decode-sequence [{:keys [generated-tokens]}]
-  (py/$a tokenizer decode generated-tokens))
+  (py. tokenizer decode generated-tokens))
 
 (loop [step {:generated-tokens generated
              :context context

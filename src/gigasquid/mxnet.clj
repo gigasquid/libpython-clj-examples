@@ -6,27 +6,33 @@
 ;;; sudo pip3 install mxnet
 ;;; sudo pip3 install opencv-python
 
-(require-python '(mxnet mxnet.ndarray mxnet.module mxnet.io))
-(require-python '(mxnet.test_utils mxnet.initializer mxnet.metric mxnet.symbol))
+(require-python '[mxnet :as mxnet])
+(require-python '[mxnet.ndarray :as ndarray])
+(require-python '[mxnet.module :as module])
+(require-python '[mxnet.io :as io])
+(require-python '[mxnet.test_utils :as test-utils])
+(require-python '[mxnet.initializer :as initializer])
+(require-python '[mxnet.metric :as metric])
+(require-python '[mxnet.symbol :as sym])
 
 
 ;;; get the mnist data and format it
 
-(def mnist (mxnet.test_utils/get_mnist))
-(def train-x (mxnet.ndarray/array (py. (py/get-item mnist "train_data") "reshape" -1 784)))
-(def train-y (mxnet.ndarray/array (py/get-item mnist "train_label")))
-(def test-x (mxnet.ndarray/array (py. (py/get-item mnist "test_data") "reshape" -1 784)))
-(def test-y (mxnet.ndarray/array (py/get-item mnist "test_label")))
+(def mnist (test-utils/get_mnist))
+(def train-x (ndarray/array (py. (py/get-item mnist "train_data") "reshape" -1 784)))
+(def train-y (ndarray/array (py/get-item mnist "train_label")))
+(def test-x (ndarray/array (py. (py/get-item mnist "test_data") "reshape" -1 784)))
+(def test-y (ndarray/array (py/get-item mnist "test_label")))
 
 (def batch-size 100)
 
-(def train-dataset (mxnet.io/NDArrayIter :data train-x
-                                         :label train-y
-                                         :batch_size batch-size
-                                         :shuffle true))
-(def test-dataset (mxnet.io/NDArrayIter :data test-x
-                                        :label test-y
-                                        :batch_size batch-size))
+(def train-dataset (io/NDArrayIter :data train-x
+                                   :label train-y
+                                   :batch_size batch-size
+                                   :shuffle true))
+(def test-dataset (io/NDArrayIter :data test-x
+                                  :label test-y
+                                  :batch_size batch-size))
 
 
 (def data-shapes (py.- train-dataset "provide_data"))
@@ -38,15 +44,15 @@ label-shapes ;=> [DataDesc[softmax_label,(10,),<class 'numpy.float32'>,NCHW]]
 
 ;;;; Setting up the model and initializing it
 
-(def data (mxnet.symbol/Variable "data"))
+(def data (sym/Variable "data"))
 
-(def net (-> (mxnet.symbol/Variable "data")
-             (mxnet.symbol/FullyConnected :name "fc1" :num_hidden 128)
-             (mxnet.symbol/Activation :name "relu1" :act_type "relu")
-             (mxnet.symbol/FullyConnected :name "fc2" :num_hidden 64)
-             (mxnet.symbol/Activation :name "relu2" :act_type "relu")
-             (mxnet.symbol/FullyConnected :name "fc3" :num_hidden 10)
-             (mxnet.symbol/SoftmaxOutput :name "softmax")))
+(def net (-> (sym/Variable "data")
+             (sym/FullyConnected :name "fc1" :num_hidden 128)
+             (sym/Activation :name "relu1" :act_type "relu")
+             (sym/FullyConnected :name "fc2" :num_hidden 64)
+             (sym/Activation :name "relu2" :act_type "relu")
+             (sym/FullyConnected :name "fc3" :num_hidden 10)
+             (sym/SoftmaxOutput :name "softmax")))
 
 
 
@@ -116,16 +122,16 @@ label-shapes ;=> [DataDesc[softmax_label,(10,),<class 'numpy.float32'>,NCHW]]
 
   (py. train-dataset "reset")
   (def bd (next-batch train-dataset))
-  (def data (first (py/get-attr bd "data")))
+  (def data (first (py.- bd "data")))
 
-  (def image (mxnet.ndarray/slice data :begin 0 :end 1))
+  (def image (ndarray/slice data :begin 0 :end 1))
   (def image2 (py. image "reshape" [28 28]))
-  (def image3 (-> (mxnet.ndarray/multiply image2 256)
-                  (mxnet.ndarray/cast :dtype "uint8")))
+  (def image3 (-> (ndarray/multiply image2 256)
+                  (ndarray/cast :dtype "uint8")))
   (def npimage (py. image3 "asnumpy"))
 
 
-  (require-python 'cv2)
+  (require-python '[cv2 :as cv2])
   (cv2/imwrite "number.jpg" npimage)
 
 

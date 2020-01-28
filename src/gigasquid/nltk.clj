@@ -10,7 +10,7 @@
 ;; tagging, parsing, and semantic reasoning, wrappers for industrial-strength NLP libraries
 ;; and an active discussion forum.
 
-(require-python '([nltk :as nltk]))
+(require-python '[nltk :as nltk])
 (comment 
 
   ;; We will follow some examples from here first
@@ -29,7 +29,7 @@
 
   ;;;; Book datasets
   (nltk/download "book")
-  (require-python '([nltk.book :as book]))
+  (require-python '[nltk.book :as book])
 
   (book/texts)
   ;;; prints out in repl
@@ -102,7 +102,7 @@
 
   ;;; Accessing Text Corpora
 
-  (require-python '([nltk.corpus :as corpus]))
+  (require-python '[nltk.corpus :as corpus])
 
   ;; NLTK includes a small selection of texts from the Project Gutenberg electronic text archive, which contains some 25,000 free electronic books, hosted at http://www.gutenberg.org/. We begin by getting the Python interpreter to load the NLTK package, then ask to see nltk.corpus.gutenberg.fileids(), the file identifiers in this corpus:
   
@@ -118,7 +118,7 @@
 
 
 ;;; Sentence tokenization
-  (require-python '([nltk.tokenize :as tokenize]))
+  (require-python '[nltk.tokenize :as tokenize])
 
  (def text "Hello Mr. Smith, how are you doing today? The weather is great, and city is awesome.
 The sky is pinkish-blue. You shouldn't eat cardboard")
@@ -133,7 +133,7 @@ The sky is pinkish-blue. You shouldn't eat cardboard")
  
  ;;; Frequency Distribution
 
- (require-python '([nltk.probability :as probability]))
+ (require-python '[nltk.probability :as probability])
 
  (def fdist (probability/FreqDist tokenized-word))
  fdist ;=> <FreqDist with 25 samples and 30 outcomes>
@@ -144,7 +144,7 @@ The sky is pinkish-blue. You shouldn't eat cardboard")
 
 ;;; stopwords (considered noise in tett)
 
- (require-python '([nltk.corpus :as corpus]))
+ (require-python '[nltk.corpus :as corpus])
 
  (def stop-words (into #{} (py. corpus/stopwords words "english")))
  stop-words
@@ -165,7 +165,7 @@ The sky is pinkish-blue. You shouldn't eat cardboard")
  ;;;; Lexicon Normalization
  ;;stemming
 
- (require-python '([nltk.stem :as stem]))
+ (require-python '[nltk.stem :as stem])
 
  (let [ps (stem/PorterStemmer)]
    (->> filtered-sent
@@ -177,7 +177,7 @@ The sky is pinkish-blue. You shouldn't eat cardboard")
 
 ;;; Lemmatization
 
- (require-python '([nltk.stem.wordnet :as wordnet]))
+ (require-python '[nltk.stem.wordnet :as wordnet])
 
  (let [lem (wordnet/WordNetLemmatizer)
        stem (stem/PorterStemmer)

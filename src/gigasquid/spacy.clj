@@ -11,7 +11,7 @@
 ;;; Install pip3 install spacy
 ;;;; python3 -m spacy download en_core_web_sm
 
-(require-python '([spacy :as spacy]))
+(require-python '[spacy :as spacy])
 
 
 ;;; Following this tutorial https://spacy.io/usage/spacy-101#annotat
@@ -92,7 +92,7 @@
 
 ;;; then restart cider to pick up changes
 
-(require-python '([spacy :as spacy]))
+(require-python '[spacy :as spacy])
 (def nlp (spacy/load "en_core_web_md"))
 
 (let [tokens (nlp "dog cat banana afskfsd")]

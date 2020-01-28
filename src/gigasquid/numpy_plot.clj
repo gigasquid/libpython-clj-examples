@@ -4,8 +4,8 @@
             [gigasquid.plot :as plot]))
 
 
-(require-python '([matplotlib.pyplot :as pyplot]
-                  [numpy :as numpy]))
+(require-python '[matplotlib.pyplot :as pyplot])
+(require-python '[numpy :as numpy])
 
 ;;;; you will need matplotlib, numpy, and pillow installed to run this in python3
 

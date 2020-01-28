@@ -11,7 +11,7 @@
 (def mplt (py/import-module "matplotlib"))
 (py. mplt "use" "Agg")
 
-(require-python '([matplotlib.pyplot :as pyplot]))
+(require-python '[matplotlib.pyplot :as pyplot])
 (require-python 'matplotlib.backends.backend_agg)
 (require-python 'numpy)
 
