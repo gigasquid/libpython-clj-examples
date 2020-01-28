@@ -67,7 +67,6 @@
                                               (get iris-name-map item))
                                             (py.- iris target)))))
 
-(py/get-item "species") ;=> nil
 (py. iris-df __setitem__ "species" iris-name-series)
 (py/get-item iris-df "species")
 ;; 0         setosa
