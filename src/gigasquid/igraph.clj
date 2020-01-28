@@ -7,6 +7,7 @@
 ;;; igraph is a graph python library
 
 ;;; sudo pip3 install python-igraph
+;;; sudo pip3 install pycairo
 
 
 (require-python '[igraph :as igraph])
