@@ -25,6 +25,7 @@ before running
 - [GPT2 & MXNet](https://nextjournal.com/kommen/gigasquids-libpython-clj-examples)
 - [Seaborn Visualizations](https://nextjournal.com/gigasquid/parens-for-python---seaborn-visualizations)
 - [UMAP and Trimap](https://nextjournal.com/gigasquid/parens-for-python---umap-trimap)
+- [Network Analysis with IGraph and Leiden](https://nextjournal.com/gigasquid/parens-for-python---network-analysis-and-visualization)
 
 ## License
 
