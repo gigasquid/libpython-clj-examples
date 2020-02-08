@@ -20,6 +20,11 @@ In general, you will need a python3 env and pip install the various packages
 before running
 
 
+### Nextjournal Posts
+- [Pyplot](https://nextjournal.com/kommen/parens-for-polyglot)
+- [GPT2 & MXNet](https://nextjournal.com/kommen/gigasquids-libpython-clj-examples)
+- [Seaborn Visualizations](https://nextjournal.com/gigasquid/parens-for-python---seaborn-visualizations)
+- [UMAP and Trimap](https://nextjournal.com/gigasquid/parens-for-python---umap-trimap)
 
 ## License
 
