@@ -6,6 +6,10 @@
 ;;;; You need to pip install the model
 ;; sudo pip3 install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.2.4/en_core_sci_sm-0.2.4.tar.gz
 
+;;; pip install scispacy
+
+;;; tutorial from https://allenai.github.io/scispacy/
+
 (require-python '[spacy :as spacy])
 (require-python '[scispacy :as scispacy])
 

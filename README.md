@@ -10,6 +10,7 @@ So far there are source code examples meant to be walked through in the REPL
 - Matlib PyPlot
 - NLTK
 - SpaCy
+- Sci SpaCy
 - Seaborn
 - UMAP
 - TRIMAP
@@ -26,6 +27,7 @@ before running
 - [Seaborn Visualizations](https://nextjournal.com/gigasquid/parens-for-python---seaborn-visualizations)
 - [UMAP and Trimap](https://nextjournal.com/gigasquid/parens-for-python---umap-trimap)
 - [Network Analysis with IGraph and Leiden](https://nextjournal.com/gigasquid/parens-for-python---network-analysis-and-visualization)
+- [Sci Spacy tutorial](https://nextjournal.com/gigasquid/parens-for-python---sci-spacy)
 
 ## License
 
