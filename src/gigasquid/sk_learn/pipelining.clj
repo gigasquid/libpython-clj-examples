@@ -3,7 +3,9 @@
             [libpython-clj.python :as py :refer [py. py.. py.-]]
             [gigasquid.plot :as plot]))
 
-;We have seen that some estimators can transform data and that some estimators can predict variables. We can also create combined estimators:
+                                        ;We have seen that some estimators can transform data and that some estimators can predict variables. We can also create combined estimators:
+
+;;; https://scikit-learn.org/stable/tutorial/statistical_inference/putting_together.html
 
 (require-python '[sklearn.datasets :as datasets])
 (require-python '[sklearn.decomposition :as decomposition])

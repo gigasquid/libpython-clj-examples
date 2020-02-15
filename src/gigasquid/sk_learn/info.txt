@@ -1,0 +1,3 @@
+This is based on the statistical learning for scientific data processing
+
+https://scikit-learn.org/stable/tutorial/statistical_inference/index.html
