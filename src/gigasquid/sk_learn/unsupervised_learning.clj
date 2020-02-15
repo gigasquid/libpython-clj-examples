@@ -65,4 +65,16 @@ images-shape ;=> (1797, 8, 8)
 (def s2 (np/sign (np/sin (np/multiply 3 time))))
 (def s3 (signal/sawtooth (np/multiply 2 np/pi time)))
 (def S (np/column_stack [s1 s2 s3]))
-(def S (np/add S 0.2))
+(def S (np/add S 0.2 (np-random/normal :size (py.- S shape))))
+(def S (np/divide S (py. S std :axis 0)))
+;;; Mix data
+(def A (np/array [[1 1 1] [0.5 2 1] [1.5 1 2]])) ;; mixing matrix
+(def X (np/dot S (py.- A T)))
+
+;; Compute ICA
+(def ica (decomposition/FastICA))
+(def S_ (py. ica fit_transform X)) ;; get the estimated sources
+(def A_ (-> ica
+            (py.- mixing_)
+            (py.- T)))
+(np/allclose X (np/add (np/dot S_ A_) (py.- ica mean_))) ;=> true
