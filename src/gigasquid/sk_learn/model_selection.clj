@@ -7,6 +7,7 @@
 
 (require-python '[sklearn.datasets :as datasets])
 (require-python '[sklearn.model_selection :as model-selection])
+(require-python '[sklearn.linear_model :as linear-model])
 (require-python '[sklearn.svm :as svm])
 (require-python '[numpy :as np])
 
@@ -87,4 +88,36 @@
                                  :scoring "precision_macro")
 ;=>[0.96578289 0.92708922 0.96681476 0.96362897 0.93192644]
 
+
+;;;; Grid search
+;;scikit-learn provides an object that, given data, computes the score during the fit of an estimator on a parameter grid and chooses the parameters to maximize the cross-validation score. This object takes an estimator during the construction and exposes an estimator API:
+
+(def Cs (np/logspace -6 -1 10))
+(def clf (model-selection/GridSearchCV :estimator svc
+                                       :param_grid {:C Cs}
+                                       :n_jobs -1))
+(def slice-x-digits (->> x-digits (take 1000) (into []) (np/array)))
+(def slice-y-digits (->> y-digits (take 1000) (into []) (np/array)))
+(def slice-x2-digits (->> x-digits (drop 1000) (take 1000) (into []) (np/array)))
+(def slice-y2-digits (->> y-digits (drop 1000) (take 1000) (into []) (np/array)))
+(py. clf fit slice-x-digits slice-y-digits)
+(py.- clf best_score_) ;=> 0.95
+(-> clf (py.- best_estimator_) (py.- C)) ;=> 0.0021544346900318843
+(py. clf score slice-x2-digits slice-y2-digits) ;=> 0.946047678795483
+
+
+;;; Nested cross validation
+(model-selection/cross_val_score clf x-digits y-digits)
+;;=>[0.94722222 0.91666667 0.96657382 0.97493036 0.93593315]
+
+
+;; Cross-validated esitmators
+
+(def lasso (linear-model/LassoCV))
+(def diabetes (datasets/load_diabetes :return_X_y true))
+(def x-diabetes (first diabetes))
+(def y-diabetes (last diabetes))
+(py. lasso fit x-diabetes y-diabetes)
+;;; The estimator chose automatically its lambda:
+(py.- lasso alpha_);=> 0.003753767152692203
 
