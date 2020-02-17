@@ -7,17 +7,18 @@ So far there are source code examples meant to be walked through in the REPL
 
 - GPT2 text generation from hugging-face
 - MXNet MNIST classification using the Module API
-- Matlib PyPlot
-- NLTK
-- SpaCy
-- Sci SpaCy
-- Seaborn
-- UMAP
-- TRIMAP
-- Igraph
-- Leiden
-- Sklearn
-- Facebook Prophet
+- [Matlib PyPlot](https://github.com/matplotlib/matplotlib)
+- [NLTK](https://www.nltk.org/)
+- [SpaCy](https://github.com/explosion/spaCy)
+- [Sci SpaCy](https://github.com/allenai/scispacy)
+- [Seaborn](https://github.com/mwaskom/seaborn)
+- [UMAP](https://github.com/lmcinnes/umap)
+- [TRIMAP](https://pypi.org/project/trimap/)
+- [Igraph](https://igraph.org/)
+- [Leiden](https://github.com/vtraag/leidenalg)
+- [Sklearn](https://github.com/scikit-learn/scikit-learn)
+- [Facebook Prophet](https://github.com/facebook/prophet)
+- [Pygal](http://www.pygal.org/en/latest/index.html#)
 
 In general, you will need a python3 env and pip install the various packages
 before running
