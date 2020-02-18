@@ -22,14 +22,14 @@
 
 ;; http://www.pygal.org/en/latest/documentation/first_steps.html#
 
-;; For list of configuration see
-;; http://www.pygal.org/en/latest/documentation/configuration/chart.html
-(def config (pygal/Config
-             :pretty_print true
-             :title "My Pygal Chart"))
-
-
 (comment
+
+  ;; For list of configuration see
+  ;; http://www.pygal.org/en/latest/documentation/configuration/chart.html
+  (def config (pygal/Config
+               :pretty_print true
+               :title "My Pygal Chart"))
+
   ;; Some configurable settings
   (py.- config title)            ;;=> "My Pygal Chart"
   (py.- config width)            ;;=> 800
@@ -581,6 +581,117 @@
            "G" [5, 9.3, 8.1, 12, 4, 3, 2]
            "H" [12, 3, 3])
   )
+
+;; Value configuration
+;; http://www.pygal.org/en/stable/documentation/configuration/value.html
+(comment
+
+  ;; Labels
+  (pg-plot (pygal/Bar :title "Labels Example")
+           "First" [{:value 2 :label "This is the first"}]
+           "Second" [{:value 4 :label "This is the second"}]
+           "Third" 7
+           "Fourth" [{:value 5}]
+           "Fifth" [{:value 3 :label "This is the fifth"}])
+
+  ;; Style
+  ;; You can force the color of a value by specifying a color key
+  (pg-plot (pygal/Bar :title "Style with Color Example")
+           "Series" [{:value 2} 3 4
+                     {:value 10, :color :blue}
+                     {:value 11, :color "rgb(255, 45, 20, 0.6)" 4 2}])
+
+  ;; The color key set the fill and the stroke style. You can also set the css style manually:
+  (pg-plot (pygal/Bar :title "Style with custom stroke Example")
+           "Series" [{:value 2} 3 4
+                     {:value 10,
+                      :style "fill: red; stroke: black; stroke-width: 4"}
+                     {:value 11,
+                      :style "fill: rgb(255, 45, 20, 0.6); stroke: black; stroke-dasharray: 15, 10, 5, 10, 15"} 4 2]
+           )
+
+  ;; Value formatting
+
+  ;; You can add a `formatter` metada for a specific value
+  ;; Note: we can't use the `pg-plot` method for this as it uses additional arguments
+  ;; Python Code:
+  ;; chart = pygal.Bar(print_values=True, value_formatter=lambda x: '{}$'.format(x))
+  ;; chart.add('bar', [.0002, .0005, .00035], formatter=lambda x: '<%s>' % x)
+  ;; chart.add('bar', [.0004, {'value': .0009, 'formatter': lambda x: '«%s»' % x}, .001])
+  ;; chart.render()
+
+  ;; Clojure Code: trying to keep it the same as Python above.
+  (let [tmp-file (File/createTempFile "tmp-output" ".svg")
+        output (.getAbsolutePath tmp-file)
+        graph (pygal/Bar :print_values true
+                         :title "Value Formatting"
+                         :value_formatter (fn [x] (format "%.4f $" x)))]
+    (py. graph add "bar" [0.0002 0.0005 0.00035]
+         :formatter (fn [x] (format "<%.4f>" x)))
+    (py. graph add "baz" [0.0004 {:value 0.0009
+                                  :formatter (fn [x] (format "<<%.4f>>" x))}])
+    (py. graph render_to_file output)
+    (sh/sh "open" output)
+    (.deleteOnExit tmp-file))
+
+  ;; Node attributes:
+  ;; It is possible to pass svg attribute to the node representing value.
+  (pg-plot (pygal/Line
+            :title "Node Attributes Example")
+           "Series" [{:value 1 :node {:r 2}}
+                     {:value 2 :node {:r 4}}
+                     {:value 3 :node {:r 6}}
+                     {:value 4 :node {:r 8}}])
+
+  )
+
+;; Links
+;; http://www.pygal.org/en/stable/documentation/configuration/value.html#links
+
+(comment
+  ;; Basic
+  ;; Add hyper links
+  (pg-plot (pygal/Bar
+            :title "Link - Basic Example")
+           "First" [{:value 2
+                     :label "This is the first"
+                     :xlink "http://en.wikipedia.org/wiki/First"}]
+           "Second" [{:value 4
+                      :label "This is the second"
+                      :xlink "http://en.wikipedia.org/wiki/Second"}]
+           "Third" 7
+           "Fourth" [{:value 5
+                      :xlink "http://en.wikipedia.org/wiki/Fourth"}]
+           "Fifth" [{:value 3
+                     :label "This is the fifth"
+                     :xlink "http://en.wikipedia.org/wiki/Fifth"}])
+
+  ;; Advanced
+  ;; Specify a map to xlink with all links attributes
+  (pg-plot (pygal/Bar
+            :title "Link - Advanced Example")
+           "First" [{:value 2
+                     :label "This is the first"
+                     :xlink "http://en.wikipedia.org/wiki/First"}]
+           "Second" [{:value 4
+                      :label "This is the second"
+                      :xlink {:href "http://en.wikipedia.org/wiki/Second"
+                              :target "_top"}}]
+           "Third" 7
+           "Fourth" [{:value 5
+                      :xlink {:href "http://en.wikipedia.org/wiki/Fourth"
+                              :target "_blank"}}]
+           "Fifth" [{:value 3
+                     :label "This is the fifth"
+                     :xlink {:href "http://en.wikipedia.org/wiki/Fifth"
+                             :target "_self"}}])
+
+  ;; TODO: http://www.pygal.org/en/stable/documentation/configuration/value.html#legend
+  ;; TODO: http://www.pygal.org/en/stable/documentation/configuration/value.html#confidence-intervals
+  )
+
+;; Sparklines - http://www.pygal.org/en/stable/documentation/sparks.html#
+;; TODO:
 
 ;; Maps
 (comment
