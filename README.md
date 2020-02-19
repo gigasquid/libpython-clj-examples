@@ -2,7 +2,7 @@
 
 ### Overview
 
-This repo contains some examples of using libpython-clj with various python libraries.
+This repo contains some examples of using [libpython-clj](https://github.com/clj-python/libpython-clj) with various python libraries.
 So far there are source code examples meant to be walked through in the REPL
 
 - [GPT2 text generation from hugging-face](https://github.com/huggingface/transformers)
@@ -19,12 +19,13 @@ So far there are source code examples meant to be walked through in the REPL
 - [Sklearn](https://github.com/scikit-learn/scikit-learn)
 - [Facebook Prophet](https://github.com/facebook/prophet)
 - [Pygal](http://www.pygal.org/en/latest/index.html#)
+- [Bokeh](https://docs.bokeh.org/en/latest/index.html)
 
 In general, you will need a python3 env and pip install the various packages
 before running
 
-
 ### Nextjournal Posts
+
 - [Pyplot](https://nextjournal.com/kommen/parens-for-polyglot)
 - [GPT2 & MXNet](https://nextjournal.com/kommen/gigasquids-libpython-clj-examples)
 - [Seaborn Visualizations](https://nextjournal.com/gigasquid/parens-for-python---seaborn-visualizations)
