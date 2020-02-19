@@ -19,6 +19,7 @@ So far there are source code examples meant to be walked through in the REPL
 - [Sklearn](https://github.com/scikit-learn/scikit-learn)
 - [Facebook Prophet](https://github.com/facebook/prophet)
 - [Pygal](http://www.pygal.org/en/latest/index.html#)
+- [Bokeh](https://docs.bokeh.org/en/latest/index.html)
 
 In general, you will need a python3 env and pip install the various packages
 before running
