@@ -18,7 +18,7 @@ For other editors, you will do the equivalent command for your editor.
 
 ## Outputs
 
-![Input Image](../../../../master/resources/opencv/cat.png)
+![Input Image](../../../../master/resources/opencv/cat.jpg)
 
 - Simple Sketch 
 
