@@ -21,6 +21,7 @@ So far there are source code examples meant to be walked through in the REPL
 - [Pygal](http://www.pygal.org/en/latest/index.html#)
 - [Bokeh](https://docs.bokeh.org/en/latest/index.html)
 - [OpenCV](https://opencv.org/)
+- [psutil](https://psutil.readthedocs.io/en/latest/)
 
 In general, you will need a python3 env and pip install the various packages
 before running
