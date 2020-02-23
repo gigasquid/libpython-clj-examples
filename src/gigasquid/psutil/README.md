@@ -1,6 +1,6 @@
-# psutil examples
+# psutil
 
-Very nice Python library that provide useful information about the system.
+Cross-platform lib for process and system monitoring in Python
 
 Official [Documentation](https://psutil.readthedocs.io/en/latest/)
 
