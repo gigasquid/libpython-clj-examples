@@ -3,8 +3,8 @@
             [libpython-clj.python :as py :refer [py. py.. py.-]]
             [gigasquid.plot :as plot]))
 
-;;; sudo pip3 install  holidays==0.9.12
-;;; sudo pip3 install plotly (optional)
+;;; sudo pip3 install fbprophet
+;;; sudo pip3 install holidays==0.9.12
 
 ;;; tutorial https://facebook.github.io/prophet/docs/quick_start.html#python-api
 
@@ -102,5 +102,3 @@
 
 (plot/with-show
   (py. m plot_components forecast))
-
-

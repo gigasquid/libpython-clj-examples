@@ -33,6 +33,7 @@ before running
 - [UMAP and Trimap](https://nextjournal.com/gigasquid/parens-for-python---umap-trimap)
 - [Network Analysis with IGraph and Leiden](https://nextjournal.com/gigasquid/parens-for-python---network-analysis-and-visualization)
 - [Sci Spacy tutorial](https://nextjournal.com/gigasquid/parens-for-python---sci-spacy)
+- [Facebook Prophet](https://nextjournal.com/gigasquid/parens-for-python---predicting-sportsball-ufos)
 
 ## License
 
