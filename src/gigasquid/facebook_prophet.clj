@@ -86,3 +86,21 @@
 
 (plot/with-show
   (py. m plot_components forecast))
+
+
+;;;; We can also do monthly data as well - Let's take an example of UFOsightings
+;;; From 2010 to the present from http://www.nuforc.org/webreports/ndxevent.html
+
+(def df (pd/read_csv "resources/ufosightings-since-2010.csv"))
+(def m (fbprophet/Prophet :seasonality_mode "multiplicative")) ;;; Let's factor in some holiday effects
+(py. m fit df)
+(def future (py. m make_future_dataframe :periods 48 :freq "M")) ;;; note Monthly prediction
+(def forecast (py. m predict future))
+
+(plot/with-show
+  (py. m plot forecast))
+
+(plot/with-show
+  (py. m plot_components forecast))
+
+
