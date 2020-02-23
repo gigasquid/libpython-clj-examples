@@ -40,13 +40,13 @@
 ;; ====================================== ;;
 (comment
 
-  (def img (cv2/imread "resources/opencv-logo.png"))
+  (def img (cv2/imread "resources/opencv/opencv-logo.png"))
 
   (-> img
       att-type-map)
 
   ;; Note: how we de-structure Python's tuple to vector in Clojure
-  (let [img (cv2/imread "resources/opencv-logo.png")
+  (let [img (cv2/imread "resources/opencv/opencv-logo.png")
         [h w c] (py.- img shape)]
     [h w c])
   ;;=> (99, 82, 3)
@@ -58,15 +58,8 @@
 
   (def img2 (cv2/cvtColor img cv2/COLOR_BGR2GRAY))
 
-  (cv2/imwrite "resources/opencv-gray-logo.png" img2) ;;=> true
-
-  (pyplot/imshow (cv2/cvtColor img2 cv2/COLOR_GRAY2BGR))
-
-  )
-
-(comment
-  ;; Run simple transformation, save it, show it, and then discard it
-  (save-and-open {:input-file "resources/opencv/opencv-logo.png"})
+  ;; Save the result to the file
+  (cv2/imwrite "resources/opencv/opencv-gray-logo.png" img2) ;;=> true
 
   )
 
@@ -90,8 +83,9 @@
 
 (comment
   ;; Sketch the cat image
-  (let [img (cv2/imread "resources/cat.jpg")]
+  (let [img (cv2/imread "resources/opencv/cat.jpg")]
     (sketch-image img))
+
   )
 
 (defn cartoonize-image
@@ -111,7 +105,7 @@
 
 (comment
   ;; gray-mode true
-  (let [image (cv2/imread "resources/cat.jpg")]
+  (let [image (cv2/imread "resources/opencv/cat.jpg")]
     (cartoonize-image image true))
 
   ;; Or use the wrapper function
