@@ -118,6 +118,28 @@
   )
 
 ;; Re-usable function for exercising the above functions
+
+(def is-linux?
+  (= "linux"
+     (-> "os.name"
+         System/getProperty
+         string/lower-case)))
+
+(def is-mac?
+  (-> "os.name"
+      System/getProperty
+      string/lower-case
+      (string/starts-with? "mac")))
+
+(defn display-image
+  [image-file]
+  (cond
+    is-mac?
+    (sh/sh "open" image-file)
+
+    is-linux?
+    (sh/sh "display" image-file)))
+
 (defn process-image
   "Apply opencv function to a given image and optionally show it.
 
@@ -140,7 +162,7 @@
         image-dst (tx-fns image-src)]
     (cv2/imwrite output-file image-dst)
     (if open?
-      (sh/sh "open" output-file)
+      (display-image output-file)
       (println (format "Your output file : %s" output-file)))))
 
 (comment
