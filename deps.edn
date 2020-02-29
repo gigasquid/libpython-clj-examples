@@ -1,4 +1,6 @@
 {:paths ["src" "resources"]
+ :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
+             "clojars" {:url "https://clojars.org/repo"}}
  :deps {org.clojure/clojure {:mvn/version "1.10.1"}
         clj-python/libpython-clj {:mvn/version "1.36"}
         org.clojure/data.csv {:mvn/version "0.1.4"}}
