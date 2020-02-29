@@ -1,5 +1,5 @@
 (defproject gigasquid/libpython-clj-examples "0.1.0"
-  :description "FIXME: my new application."
+  :description "Example codes that use libpython-clj with various Python libraries"
   :url "https://github.com/gigasquid/libpython-clj-examples"
   :license {:name "Eclipse Public License - v 1.0"
             :url "http://www.eclipse.org/legal/epl-v10.html"
