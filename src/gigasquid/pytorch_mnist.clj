@@ -14,6 +14,7 @@
 ;;; sudo pip3 install torchvision
 
 (require-python '[torch :as torch])
+(require-python '[torch.cuda :as cuda])
 (require-python '[torch.onnx :as onnx])
 (require-python '[torch.nn :as nn :refer [Conv2d Dropout2d Linear]])
 (require-python '[torch.optim :as optim])
@@ -28,9 +29,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; If you do not have CUDA, then you would set this value to 'false'.
+;; If you have CUDA but do not want to use it, set this to false
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(def ^:dynamic *use-cuda* true)
+(def ^:dynamic *use-cuda* (and true (cuda/is_available)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (def log-interval 100)
