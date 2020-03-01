@@ -7,6 +7,7 @@ So far there are source code examples meant to be walked through in the REPL
 
 - [GPT2 text generation from hugging-face](https://github.com/huggingface/transformers)
 - [MXNet MNIST classification using the Module API](https://mxnet.apache.org/)
+- [Pytorch MNIST](https://github.com/pytorch/examples/tree/master/mnist)
 - [Matlib PyPlot](https://github.com/matplotlib/matplotlib)
 - [NLTK](https://www.nltk.org/)
 - [SpaCy](https://github.com/explosion/spaCy)
