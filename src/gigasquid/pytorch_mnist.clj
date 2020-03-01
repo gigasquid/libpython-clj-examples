@@ -3,7 +3,7 @@
 (ns gigasquid.pytorch-mnist
   (:require
    [libpython-clj.python :as py
-    :refer [py. py.. py.- $a $.
+    :refer [py* py** py. py.. py.- $a $.
             as-jvm with-gil-stack-rc-context
             stack-resource-context
             import-module
@@ -14,6 +14,7 @@
 ;;; sudo pip3 install torchvision
 
 (require-python '[torch :as torch])
+(require-python '[torch.cuda :as cuda])
 (require-python '[torch.onnx :as onnx])
 (require-python '[torch.nn :as nn :refer [Conv2d Dropout2d Linear]])
 (require-python '[torch.optim :as optim])
@@ -27,6 +28,12 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; If you have CUDA but do not want to use it, set this to false
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(def ^:dynamic *use-cuda* (and true (cuda/is_available)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (def log-interval 100)
 
 ;; Yann LeCun:
@@ -34,11 +41,19 @@
 ;; More importantly, it's bad for your test error.
 ;; Friends dont let friends use minibatches larger than 32. 
 ;; https://twitter.com/ylecun/status/989610208497360896
+;;
+;; input batch size for training (default: 64)
 (def batch-size 32)
-
-(def epochs 1)
+;; input batch size for testing (default: 1000)
+(def test-batch-size 1000)
+;; number of epochs to train (default: 14)
+(def epochs 14)
+;; learning rate (default: 1.0)
 (def learning-rate 1.0)
-(def gamma 1.0)
+;; Learning rate step gamma (default: 0.7)
+(def gamma 0.7)
+;; random seed (default: 1)
+(def seed 42)
 
 (def mnist-mean [0.1307])
 (def mnist-std [0.3081])
@@ -57,27 +72,31 @@
 
 ;;; load MNIST data from the internet
 (defn load-data! []
-  (let [mnist-transform (transforms/Compose
+  (let [gpu-opts (if *use-cuda*
+                   {:num_workers 1 :pin_memory true}
+                   {})
+        mnist-transform (transforms/Compose
                          [(transforms/ToTensor)
                           (transforms/Normalize mnist-mean mnist-std)])]
+    ;; training data and loader
     (reset! train-data
-            (datasets/MNIST "./resources/pytorch/data" :train true :download true
-                            :transform mnist-transform))
-    (reset! train-loader
-            (tud/DataLoader @train-data
-                            :batch_size batch-size
-                            :shuffle true
-                            :num_workers 1 :pin_memory true))
-    (reset! test-data
-            (datasets/MNIST "./resources/pytorch/data" :train false :download true
-                            :transform mnist-transform)))
-  (reset! test-loader
-          (tud/DataLoader @test-data
-                          :batch_size batch-size
-                          :shuffle true
-                          :num_workers 1 :pin_memory true))
-  nil)
+            (datasets/MNIST "./resources/pytorch/data"
+                            :train true :download true :transform mnist-transform))
+    (let [kwargs (merge {:batch_size batch-size :shuffle true}
+                        gpu-opts)
+          args (into [@train-data] (mapcat identity kwargs))]
+      (reset! train-loader (apply tud/DataLoader args)))
 
+    ;; test data and loader
+    (reset! test-data
+            (datasets/MNIST "./resources/pytorch/data"
+                            :train false :download true :transform mnist-transform))
+    (let [kwargs (merge {:batch_size test-batch-size :shuffle true}
+                        gpu-opts)
+          args (into [@test-data] (mapcat identity kwargs))]
+      (reset! test-loader (apply tud/DataLoader args))))
+
+  nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -123,8 +142,10 @@
 
 (defn setup! []
   (py/gc!)
-  (torch/manual_seed 42)
-  (reset! device (torch/device "cuda"))
+  (torch/manual_seed seed)
+  (reset! device (if *use-cuda*
+                   (torch/device "cuda")
+                   (torch/device "cpu")))
   (load-data!)
   (reset! model
           (let [inst (MyNet)]
@@ -234,6 +255,15 @@
     nil))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn --profile-cuda []
+  (binding [*use-cuda* true]
+    (setup!)
+    (train-test-loop!)))
+(defn --profile-no-cuda []
+  (binding [*use-cuda* false]
+    (setup!)
+    (train-test-loop!)))
 
 (comment
   (setup!)
