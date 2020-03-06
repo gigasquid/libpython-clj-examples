@@ -13,16 +13,18 @@
 ;;; sudo pip3 install torch
 ;;; sudo pip3 install torchvision
 
-(require-python '[torch :as torch])
-(require-python '[torch.cuda :as cuda])
-(require-python '[torch.onnx :as onnx])
-(require-python '[torch.nn :as nn :refer [Conv2d Dropout2d Linear]])
-(require-python '[torch.optim :as optim])
-(require-python '[torch.utils.data :as tud])
-(require-python '[torch.nn.functional :as F])
-(require-python '[torchvision.datasets :as datasets])
-(require-python '[torchvision.transforms :as transforms])
-(require-python '[torch.optim.lr_scheduler :as lr_scheduler])
+(require-python
+ '[torch :as torch]
+ '[torch.cuda :as cuda]
+ '[torch.onnx :as onnx]
+ '[torch.nn :as nn :refer [Conv2d Dropout2d Linear]]
+ '[torch.optim :as optim]
+ '[torch.utils.data :as tud]
+ '[torch.nn.functional :as F]
+ '[torchvision.datasets :as datasets]
+ '[torchvision.transforms :as transforms]
+ '[torch.optim.lr_scheduler :as lr_scheduler])
+
 (def enumerate (-> (py/import-module "builtins")
                    (get-attr "enumerate")))
 
@@ -31,7 +33,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; If you have CUDA but do not want to use it, set this to false
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(def ^:dynamic *use-cuda* (and true (cuda/is_available)))
+(def ^:dynamic *use-cuda* (cuda/is_available))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (def log-interval 100)
@@ -260,6 +262,7 @@
   (binding [*use-cuda* true]
     (setup!)
     (train-test-loop!)))
+
 (defn --profile-no-cuda []
   (binding [*use-cuda* false]
     (setup!)
