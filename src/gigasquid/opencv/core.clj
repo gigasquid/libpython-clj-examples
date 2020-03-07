@@ -1,6 +1,7 @@
 (ns gigasquid.opencv.core
   (:require
    [clojure.string :as string]
+   [gigasquid.utils :refer [display-image]]
    [libpython-clj.require
     :refer [require-python]]
    [libpython-clj.python
@@ -118,27 +119,6 @@
   )
 
 ;; Re-usable function for exercising the above functions
-
-(def is-linux?
-  (= "linux"
-     (-> "os.name"
-         System/getProperty
-         string/lower-case)))
-
-(def is-mac?
-  (-> "os.name"
-      System/getProperty
-      string/lower-case
-      (string/starts-with? "mac")))
-
-(defn display-image
-  [image-file]
-  (cond
-    is-mac?
-    (sh/sh "open" image-file)
-
-    is-linux?
-    (sh/sh "display" image-file)))
 
 (defn process-image
   "Apply opencv function to a given image and optionally show it.

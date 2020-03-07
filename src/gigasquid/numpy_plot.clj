@@ -3,12 +3,10 @@
             [libpython-clj.python :as py :refer [py. py.. py.-]]
             [gigasquid.plot :as plot]))
 
-
 (require-python '[matplotlib.pyplot :as pyplot])
 (require-python '[numpy :as numpy])
 
 ;;;; you will need matplotlib, numpy, and pillow installed to run this in python3
-
 
 ;;; This uses a macro from printing in the plot namespace that uses the shell "open" command
 ;;; to show a saved image from pyplot. If you don't have a mac you will need to modify that
@@ -84,9 +82,7 @@
     (plot/with-show
       (let [[fig1 ax1] (pyplot/subplots)]
         (py. ax1 "pie" sizes :explode explode :labels labels :autopct "%1.1f%%"
-                             :shadow true :startangle 90)
+             :shadow true :startangle 90)
         (py. ax1 "axis" "equal")) ;equal aspec ration ensures that pie is drawn as circle
       ))
   )
-
-
