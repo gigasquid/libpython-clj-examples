@@ -8,9 +8,10 @@
                      py.-
                      att-type-map
                      ->python
-                     ->jvm
-                     ]]
+                     ->jvm]]
             [clojure.java.shell :as sh]
+            [gigasquid.utils :refer [create-tmp-file
+                                     display-image]]
             [clojure.pprint :refer [pprint]])
   (:import [java.io File]))
 
@@ -188,13 +189,13 @@
            \"Fibonacci\" [0 1 1 2 3 5 8 13 21 34 55]
            \"Padovan\" [1 1 1 2 2 3 4 5 7 9 12])"
   [graph & xs]
-  (let [tmp-file (File/createTempFile "tmp-output" ".svg")
+  (let [tmp-file (create-tmp-file "tmp-output" ".svg")
         output (.getAbsolutePath tmp-file)]
     (doseq [[x y]
             (partition 2 xs)]
       (py. graph add x y))
     (py. graph render_to_file output)
-    (sh/sh "open" output)
+    (display-image output)
     (.deleteOnExit tmp-file)))
 
 (comment
@@ -222,6 +223,7 @@
            "Narrow Bars" [[10 1 2]
                           [12 4 4.5]
                           [8 11 13]])
+
   )
 
 ;; XY - http://www.pygal.org/en/latest/documentation/types/xy.html
@@ -264,8 +266,8 @@
            )
 
   ;; Time
-
   (py/from-import datetime)
+
   ;; DateTime
   (pg-plot (pygal/DateTimeLine
             :title "DateTime Example"
