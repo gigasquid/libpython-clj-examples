@@ -29,6 +29,32 @@
      (display-image temp-image#)
      (.deleteOnExit temp-file#)))
 
+;;;; If you run into mem problems with temporary files try this one
+
+(defmacro with-show-one
+  "Takes forms with mathplotlib.pyplot to then show locally"
+  [& body]
+  `(let [_# (pyplot/clf)
+         fig# (pyplot/figure)
+         agg-canvas# (matplotlib.backends.backend_agg/FigureCanvasAgg fig#)]
+     ~(cons 'do body)
+     (py. agg-canvas# "draw")
+     (pyplot/savefig "temp.png")
+     (sh/sh "open" "temp.png")))
+
+(defmacro with-save
+  "Takes forms with mathplotlib.pyplot to then show locally"
+  [fname & body]
+  `(let [_# (pyplot/clf)
+         fig# (pyplot/figure)
+         agg-canvas# (matplotlib.backends.backend_agg/FigureCanvasAgg fig#)]
+     ~(cons 'do body)
+     (py. agg-canvas# "draw")
+     (pyplot/savefig  ~fname)))
+
+
+
+
 (comment
 
   (def x (numpy/linspace 0 2 100))
